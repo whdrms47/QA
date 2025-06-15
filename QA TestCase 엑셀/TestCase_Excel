@@ -1,0 +1,139 @@
+import time
+import os
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# 현재 시간 저장
+now = time.strftime('%Y_%m_%d_%Hh_%Mm')
+
+# 결과 저장용 리스트
+result_data = []
+
+# 결과 저장 폴더
+if not os.path.exists('test_result'):
+    os.makedirs('test_result')
+
+# WebDriver 실행
+driver = webdriver.Chrome()
+driver.get('https://www.cgv.co.kr')
+driver.implicitly_wait(10)
+
+def record_result(tc_id, result, reason=''):
+    result_data.append({
+        'TC_ID': tc_id,
+        'Result': result,
+        'Reason': reason
+    })
+
+# 각 테스트 케이스 수행
+try:
+    tc_id = 'TC_001'
+    if driver.current_url == 'https://www.cgv.co.kr/':
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', 'CGV 메인 페이지 접속 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+try:
+    tc_id = 'TC_002-003'
+    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    elem.click()
+    elem.send_keys('28tu9w8g')
+    driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
+    elem = driver.find_element(By.CSS_SELECTOR, '#search_result')
+    if "'28tu9w8g' 검색결과가 없습니다." == elem.text.strip():
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', '존재하지 않는 영화 검색 결과 확인 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+try:
+    tc_id = 'TC_004'
+    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    elem.click()
+    elem.send_keys('썬더볼츠')
+    driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
+    elem = driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > strong')
+    if elem.text.strip().startswith('영화검색 결과'):
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', '한글 영화 검색 결과 확인 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+try:
+    tc_id = 'TC_005'
+    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    elem.click()
+    elem.send_keys('mission impossible')
+    driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
+    elem = driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > strong')
+    if elem.text.strip().startswith('영화검색 결과'):
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', '영어 영화 검색 결과 확인 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+try:
+    tc_id = 'TC_006'
+    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    elem.click()
+    elem.send_keys("@@##!!")
+    driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
+    elem = driver.find_element(By.CSS_SELECTOR, '#contents > div > div > ul > li > img')
+    if elem.is_displayed():
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', '존재하지 않는 특수문자 영화 검색 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+try:
+    tc_id = 'TC_007'
+    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    elem.click()
+    elem.send_keys("범죄도시")
+    driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
+    driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > ul > li:nth-child(1) > a > img').click()
+    elem = driver.find_element(By.CSS_SELECTOR, '#menu > div.col-detail > ul')
+    if elem.is_displayed():
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', '영화 상세 정보 페이지 진입 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+try:
+    tc_id = 'TC_008'
+    driver.find_element(By.CSS_SELECTOR, '#cgvwrap > div.header > div.header_content > div > h1 > a > img').click()
+    elem = driver.find_element(By.CSS_SELECTOR, '#contaniner > div.noticeClient_wrap > div > div.noticeClient_container > div.qr_wrap > div > img')
+    if elem.is_displayed():
+        record_result(tc_id, 'PASS')
+    else:
+        record_result(tc_id, 'FAIL', '메인페이지 이동 실패.')
+except Exception as e:
+    record_result(tc_id, 'FAIL', str(e))
+
+driver.quit()
+
+# 결과 Excel 저장
+df = pd.DataFrame(result_data)
+tc_count = len(df)  # 총 테스트 케이스 수
+
+summary = {
+    '테스트 실행 일시': [now],
+    'PASS TC COUNT': [df['Result'].value_counts().get('PASS', 0)],
+    'FAIL TC COUNT': [df['Result'].value_counts().get('FAIL', 0)],
+    'COMPLETED TEST COUNT': [len(df)],
+    'PROGRESS OF TEST (%)': [f"{(len(df) / tc_count) * 100:.2f}%"],
+    'PASS RATE (%)': [f"{(df['Result'].value_counts().get('PASS', 0) / tc_count) * 100:.2f}%"]
+}
+df_summary = pd.DataFrame(summary)
+
+with pd.ExcelWriter(f'./test_result/{now}_Test_report.xlsx') as writer:
+    df.to_excel(writer, index=False, sheet_name='Test Results')
+    df_summary.to_excel(writer, index=False, sheet_name='Summary')
