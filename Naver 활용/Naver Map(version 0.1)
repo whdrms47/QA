@@ -1,0 +1,54 @@
+import time
+import pyautogui
+import pyperclip
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# 검색어 입력
+keyword = input("검색어를 입력하세요: ")
+
+# Chrome 브라우저 실행
+driver = webdriver.Chrome()
+
+# 네이버 지도 + 입력한 값 검색
+driver.get("https://map.naver.com/p/search/" + str(keyword))
+driver.implicitly_wait(10)
+
+# iframe 변경
+frame = driver.find_element(By.CSS_SELECTOR,"iframe#searchIframe")
+driver.switch_to.frame(frame)
+time.sleep(3)
+
+# 스크롤 대상 div 찾기
+scrollable = driver.find_element(By.CSS_SELECTOR, "#_pcmap_list_scroll_container")
+
+# 반복 스크롤
+last_height = driver.execute_script("return arguments[0].scrollTop", scrollable)
+
+while True:
+    # 스크롤 끝까지 내림
+    driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable)
+    time.sleep(2)  # 로딩 대기
+
+    # 현재 스크롤 위치
+    new_height = driver.execute_script("return arguments[0].scrollTop", scrollable)
+
+    # 더 이상 내려가지 않으면 종료
+    if new_height == last_height:
+        break
+    last_height = new_height
+store_list = driver.find_elements(By.CSS_SELECTOR, "#_pcmap_list_scroll_container > ul > li")
+
+print(f"총 {len(store_list)}개의 가게 정보 노출\n")
+
+for idx, store in enumerate(store_list, start=1):
+    try:
+        name = store.find_element(By.CSS_SELECTOR, "span.YwYLL").text
+    except:
+        name = "가게명 없음"
+    try:
+        opening = store.find_element(By.CSS_SELECTOR, "span.XP3ml").text
+    except:
+        opening = "영업시간 없음"
+
+    print(f"{idx}. {name} / {opening}") 
