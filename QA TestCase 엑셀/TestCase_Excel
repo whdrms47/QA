@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 # 현재 시간 저장
-now = time.strftime('%Y_%m_%d_%Hh_%Mm')
+timestamp = time.strftime('%Y_%m_%d_%Hh_%Mm')
 
 # 결과 저장용 리스트
 result_data = []
@@ -19,121 +19,153 @@ driver = webdriver.Chrome()
 driver.get('https://www.cgv.co.kr')
 driver.implicitly_wait(10)
 
-def record_result(tc_id, result, reason=''):
+def record_result(test_id, result, reason=''):
     result_data.append({
-        'TC_ID': tc_id,
+        'Test ID': test_id,
         'Result': result,
         'Reason': reason
     })
 
 # 각 테스트 케이스 수행
 try:
-    tc_id = 'TC_001'
+    test_id = 'TC01'
     if driver.current_url == 'https://www.cgv.co.kr/':
-        record_result(tc_id, 'PASS')
+        print('[성공] CGV 메인 페이지 접속 완료')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', 'CGV 메인 페이지 접속 실패.')
+        print('[실패] CGV 메인 페이지 접속 불가')
+        record_result(test_id, 'FAIL', 'CGV 메인 페이지 접속 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 try:
-    tc_id = 'TC_002-003'
-    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
-    elem.click()
-    elem.send_keys('28tu9w8g')
+    test_id = 'TC02'
+    search_input = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    search_input.click()
+    search_input.send_keys('28tu9w8g')
     driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
-    elem = driver.find_element(By.CSS_SELECTOR, '#search_result')
-    if "'28tu9w8g' 검색결과가 없습니다." == elem.text.strip():
-        record_result(tc_id, 'PASS')
+    driver.implicitly_wait(10)
+
+    result_element = driver.find_element(By.CSS_SELECTOR, '#search_result')
+    expected_text = "'28tu9w8g' 검색결과가 없습니다."
+
+    if expected_text == result_element.text.strip():
+        print('[성공] 존재하지 않는 영화 검색 결과 확인됨')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', '존재하지 않는 영화 검색 결과 확인 실패.')
+        print('[실패] 존재하지 않는 영화 검색 결과 불일치')
+        record_result(test_id, 'FAIL', 'CGV 메인 페이지 접속 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 try:
-    tc_id = 'TC_004'
-    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
-    elem.click()
-    elem.send_keys('썬더볼츠')
+    test_id = 'TC03'
+    search_input = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    search_input.click()
+    search_input.send_keys('썬더볼츠')
     driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
-    elem = driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > strong')
-    if elem.text.strip().startswith('영화검색 결과'):
-        record_result(tc_id, 'PASS')
+    driver.implicitly_wait(10)
+
+    result_header = driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > strong')
+    if result_header.text.strip().startswith('영화검색 결과'):
+        print('[성공] 한글 영화 검색 결과 확인됨')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', '한글 영화 검색 결과 확인 실패.')
+        print('[실패] 한글 영화 검색 결과 확인 실패')
+        record_result(test_id, 'FAIL', '한글 영화 검색 결과 확인 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 try:
-    tc_id = 'TC_005'
-    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
-    elem.click()
-    elem.send_keys('mission impossible')
+    test_id = 'TC04'
+    search_input = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    search_input.click()
+    search_input.send_keys('mission impossible')
     driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
-    elem = driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > strong')
-    if elem.text.strip().startswith('영화검색 결과'):
-        record_result(tc_id, 'PASS')
+    driver.implicitly_wait(10)
+
+    result_header = driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > strong')
+    if result_header.text.strip().startswith('영화검색 결과'):
+        print('[성공] 영어 영화 검색 결과 확인됨')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', '영어 영화 검색 결과 확인 실패.')
+        print('[실패] 영어 영화 검색 결과 확인 실패')
+        record_result(test_id, 'FAIL', '영어 영화 검색 결과 확인 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 try:
-    tc_id = 'TC_006'
-    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
-    elem.click()
-    elem.send_keys("@@##!!")
+    test_id = 'TC05'
+    search_input = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    search_input.click()
+    search_input.send_keys("@@##!!")
+
     driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
-    elem = driver.find_element(By.CSS_SELECTOR, '#contents > div > div > ul > li > img')
-    if elem.is_displayed():
-        record_result(tc_id, 'PASS')
+    driver.implicitly_wait(10)
+
+    image_result = driver.find_element(By.CSS_SELECTOR, '#contents > div > div > ul > li > img')
+
+    if image_result.is_displayed():
+        print('[성공] 특수문자 검색 처리 정상')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', '존재하지 않는 특수문자 영화 검색 실패.')
+        print('[실패] 특수문자 검색 처리 실패')
+        record_result(test_id, 'FAIL', '존재하지 않는 특수문자 영화 검색 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 try:
-    tc_id = 'TC_007'
-    elem = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
-    elem.click()
-    elem.send_keys("범죄도시")
+    test_id = 'TC06'
+    search_input = driver.find_element(By.CSS_SELECTOR, '#header_keyword')
+    search_input.click()
+    search_input.send_keys("범죄도시")
     driver.find_element(By.CSS_SELECTOR, '#btn_header_search').click()
+    driver.implicitly_wait(10)
+
     driver.find_element(By.CSS_SELECTOR, '#searchMovieResult > ul > li:nth-child(1) > a > img').click()
-    elem = driver.find_element(By.CSS_SELECTOR, '#menu > div.col-detail > ul')
-    if elem.is_displayed():
-        record_result(tc_id, 'PASS')
+    driver.implicitly_wait(10)
+
+    detail_tab = driver.find_element(By.CSS_SELECTOR, '#menu > div.col-detail > ul')
+    if detail_tab.is_displayed():
+        print('[성공] 영화 상세 정보 페이지 진입 완료')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', '영화 상세 정보 페이지 진입 실패.')
+        print('[실패] 영화 상세 정보 페이지 진입 실패')
+        record_result(test_id, 'FAIL', '영화 상세 정보 페이지 진입 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 try:
-    tc_id = 'TC_008'
+    test_id = 'TC07'
     driver.find_element(By.CSS_SELECTOR, '#cgvwrap > div.header > div.header_content > div > h1 > a > img').click()
-    elem = driver.find_element(By.CSS_SELECTOR, '#contaniner > div.noticeClient_wrap > div > div.noticeClient_container > div.qr_wrap > div > img')
-    if elem.is_displayed():
-        record_result(tc_id, 'PASS')
+    driver.implicitly_wait(10)
+
+    logo_img = driver.find_element(By.CSS_SELECTOR, '#contaniner > div.noticeClient_wrap > div > div.noticeClient_container > div.qr_wrap > div > img')
+    if logo_img.is_displayed():
+        print('[성공] 메인페이지로 정상 이동')
+        record_result(test_id, 'PASS')
     else:
-        record_result(tc_id, 'FAIL', '메인페이지 이동 실패.')
+        print('[실패] 메인페이지 이동 실패')
+        record_result(test_id, 'FAIL', '메인페이지 이동 실패.')
 except Exception as e:
-    record_result(tc_id, 'FAIL', str(e))
+    record_result(test_id, 'FAIL', str(e))
 
 driver.quit()
 
 # 결과 Excel 저장
 df = pd.DataFrame(result_data)
-tc_count = len(df)  # 총 테스트 케이스 수
+total_tc_count = len(df)
 
 summary = {
-    '테스트 실행 일시': [now],
+    '테스트 실행 일시': [timestamp],
     'PASS TC COUNT': [df['Result'].value_counts().get('PASS', 0)],
     'FAIL TC COUNT': [df['Result'].value_counts().get('FAIL', 0)],
-    'COMPLETED TEST COUNT': [len(df)],
-    'PROGRESS OF TEST (%)': [f"{(len(df) / tc_count) * 100:.2f}%"],
-    'PASS RATE (%)': [f"{(df['Result'].value_counts().get('PASS', 0) / tc_count) * 100:.2f}%"]
+    'COMPLETED TEST COUNT': [total_tc_count],
+    'PROGRESS OF TEST (%)': [f"{(total_tc_count / total_tc_count) * 100:.2f}%"],
+    'PASS RATE (%)': [f"{(df['Result'].value_counts().get('PASS', 0) / total_tc_count) * 100:.2f}%"]
 }
 df_summary = pd.DataFrame(summary)
 
-with pd.ExcelWriter(f'./test_result/{now}_Test_report.xlsx') as writer:
+with pd.ExcelWriter(f'./test_result/{timestamp}_Test_report.xlsx') as writer:
     df.to_excel(writer, index=False, sheet_name='Test Results')
     df_summary.to_excel(writer, index=False, sheet_name='Summary')
