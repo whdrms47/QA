@@ -13,7 +13,7 @@ function onLoginSubmit(event) {
   localStorage.setItem(USERNAME_KEY, username);
   paintGreetings(username);
 
-  // 🚀 로그인 이벤트 전파 (todo.js에서 받을 수 있게)
+  // 로그인 이벤트 전파 (todo.js에서 받을 수 있게)
   window.dispatchEvent(new Event("user:login"));
 }
 
@@ -31,7 +31,7 @@ function doLogout() {
   loginInput.focus();
   if (logoutBtn) logoutBtn.classList.add(HIDDEN_CLASSNAME);
 
-  // 🚀 로그아웃 이벤트 전파
+  // 로그아웃 이벤트 전파
   window.dispatchEvent(new Event("user:logout"));
 }
 
@@ -49,4 +49,5 @@ if (savedUsername === null) {
 
 if (logoutBtn) {
   logoutBtn.addEventListener("click", doLogout);
+
 }
