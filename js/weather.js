@@ -49,7 +49,7 @@ function fetchWeather(lat, lon, unit){
 function onGeoOk(position){
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
-  saveCoords(lat, lon);                         // ✅ 좌표 저장
+  saveCoords(lat, lon);                         // 좌표 저장
   fetchWeather(lat, lon, getSavedUnit());
 }
 function onGeoError() {
@@ -83,9 +83,10 @@ function toggleUnit(){
 
   const cached = getSavedCoords();
   if (cached && typeof cached.lat === "number" && typeof cached.lon === "number") {
-    fetchWeather(cached.lat, cached.lon, next);           // ✅ 권한 재요청 없이 갱신
+    fetchWeather(cached.lat, cached.lon, next);           // 권한 재요청 없이 갱신
   } else {
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError); // 최초 1회만
   }
 }
+
 if (unitBtn) unitBtn.addEventListener("click", toggleUnit);
