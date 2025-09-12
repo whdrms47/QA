@@ -118,7 +118,7 @@ function handleToDoSubmit(event) {
   render();
 }
 
-// 🚀 로그인/로그아웃 연동
+// 로그인/로그아웃 연동
 function setTodoEnabled(enabled){
   toDoForm.classList.toggle("hidden", !enabled);
   toDoInput.disabled = !enabled;
@@ -162,4 +162,5 @@ function clearTodoAll(){
 
 // 이벤트 수신
 window.addEventListener("user:login", ()=> setTodoEnabled(true));
+
 window.addEventListener("user:logout", ()=> { clearTodoAll(); setTodoEnabled(false); });
