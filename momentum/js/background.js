@@ -19,6 +19,7 @@ setRandomBackground();
 
 // 버튼 연동
 const bgBtn = document.querySelector("#btn-bg");
+const test = document.querySelector("#btn-bg");
 if (bgBtn) {
   bgBtn.addEventListener("click", setRandomBackground);
 }
