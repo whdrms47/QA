@@ -1,0 +1,317 @@
+:root{
+  --text:#ffffff;
+  --subtext:rgba(255,255,255,0.85);
+  --muted:rgba(255,255,255,0.6);
+  --panel:rgba(0,0,0,0.28);
+  --panel-strong:rgba(0,0,0,0.42);
+  --todo-font: 20px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{height:100%}
+body{
+  font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji;
+  color:var(--text);
+  line-height:1.25;
+  overflow:hidden;
+  min-height:100vh;
+}
+
+/* Background image injected by background.js */
+body>img{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
+  z-index:-1;
+  backdrop-filter:saturate(1.2) contrast(1.05) blur(0.5px);
+}
+
+/* Clock */
+#clock{
+  font-weight:700;
+  font-size:clamp(56px, 12vw, 128px);
+  text-align:center;
+  text-shadow:0 2px 12px rgba(0,0,0,0.35);
+  margin-top:18vh;
+}
+
+/* Greeting */
+#greeting{
+  margin-top:0.3rem;
+  text-align:center;
+  font-size:clamp(22px, 3.2vw, 40px);
+  font-weight:600;
+  color:var(--subtext);
+  text-shadow:0 2px 10px rgba(0,0,0,0.28);
+}
+
+/* Login form */
+#login-form{
+  display:flex;
+  gap:0.5rem;
+  justify-content:center;
+  align-items:center;
+  margin-top:2rem;
+}
+#login-form input[type="text"]{
+  width:min(68vw,420px);
+  padding:0.9rem 1.1rem;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:12px;
+  outline:none;
+  backdrop-filter:blur(4px);
+}
+#login-form input[type="submit"]{
+  padding:0.9rem 1.1rem;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.3);
+  background:var(--panel-strong);
+  color:var(--text);
+  cursor:pointer;
+}
+#login-form input::placeholder{color:var(--muted)}
+
+/* To-do form */
+#todo-form{
+  margin:6vh auto 0;
+  display:flex;
+  justify-content:center;
+}
+#todo-form input{
+  appearance:none;
+  width:min(76vw,680px);
+  font-size:clamp(16px, 2.2vw, 22px);
+  color:var(--text);
+  padding:1rem .5rem .6rem;
+  background:transparent;
+  border:none;
+  border-bottom:2px solid rgba(255,255,255,.7);
+  outline:none;
+  text-align:center;
+}
+#todo-form input::placeholder{ color:var(--subtext); }
+
+/* To-do list (중앙에 표시) */
+#todo-list{
+  margin:2rem auto 0;          
+  width:min(76vw,680px);       
+  list-style:none;
+  padding:0;
+  text-align:center;
+}
+#todo-list li{
+  margin:.5rem 0;
+  padding:.6rem 1rem;
+  background:rgba(0,0,0,0.28);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:10px;
+  color:var(--subtext);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(4px);
+}
+#todo-list li span { 
+  font-size: var(--todo-font); 
+  line-height: 1.4; 
+  word-break: break-word; 
+}
+#todo-list li button{
+  border:none;
+  background:transparent;
+  font-size:16px;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+/* ✅ 체크박스 크게 */
+#todo-list li input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  accent-color: #4cafef; /* 지원 브라우저에서 체크 색상 */
+  margin-right: 10px;
+}
+
+/* Weather (top-right) */
+#weather{
+  position:fixed;
+  top:16px;
+  right:24px;
+  display:flex;
+  gap:0.6rem;
+  align-items:center;
+  font-size:14px;
+  color:var(--subtext);
+  text-shadow:0 1px 10px rgba(0,0,0,0.35);
+}
+
+/* Quote (bottom center) */
+#quote{
+  position:fixed;
+  left:50%;
+  bottom:10px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:0.5rem;
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+  padding:0.25rem 0.75rem;
+  border-radius:10px;
+  background:rgba(0,0,0,0.18);
+  border:1px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(3px);
+}
+
+.hidden{display:none !important}
+::selection{background:rgba(255,255,255,0.25)}
+
+@media (max-width:640px){
+  #clock{margin-top:20vh}
+  #todo-list{right:12px; bottom:12px; width:calc(100vw - 24px)}
+}
+/* === Fix: 긴 문구에도 체크박스 크기 유지 === */
+#todo-list li{
+  justify-content: flex-start; /* space-between → flex-start */
+  gap: 0.6rem;                 /* 요소 간 간격 */
+}
+
+#todo-list li input[type="checkbox"]{
+  flex: 0 0 22px;  /* 고정폭(기준 22px) */
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  flex-shrink: 0;  /* 절대 줄어들지 않음 */
+  margin-right: 0; /* gap 사용하므로 여백은 0으로 */
+}
+
+#todo-list li span{
+  flex: 1 1 auto;     /* 텍스트가 나머지 공간을 사용 */
+  text-align: left;
+  word-break: break-word; /* 이미 선언돼도 재확인 차원에서 */
+}
+
+#todo-list li button{
+  flex: 0 0 auto;   /* 삭제 버튼 크기 고정 */
+}
+/* === UI BAR (top-right wrapper) === */
+#ui-bar{
+  position:fixed;
+  top:16px;
+  right:24px;
+  display:flex;
+  gap:0.8rem;
+  align-items:center;
+  z-index:10;
+}
+
+/* 버튼 그룹 */
+#ui-bar .btn-group{
+  display:flex;
+  gap:0.4rem;
+  background:rgba(0,0,0,0.22);
+  border:1px solid rgba(255,255,255,0.22);
+  padding:6px;
+  border-radius:12px;
+  backdrop-filter:blur(4px);
+}
+
+/* 아이콘 버튼 공통 */
+.icon-btn{
+  appearance:none;
+  border:none;
+  outline:none;
+  cursor:pointer;
+  font-size:16px;
+  line-height:1;
+  padding:8px 10px;
+  border-radius:10px;
+  color:var(--text);
+  background:transparent;
+  transition:transform .08s ease, background .15s ease;
+}
+.icon-btn:hover{ background:rgba(255,255,255,0.12) }
+.icon-btn:active{ transform:scale(0.96) }
+
+/* 기존 weather를 ui-bar 내부에서 자연스럽게 보이도록 약간 수정 */
+#weather{
+  position:static; /* fixed -> static, ui-bar가 고정함 */
+  display:flex;
+  gap:0.5rem;
+  align-items:center;
+  font-size:14px;
+  color:var(--subtext);
+  text-shadow:0 1px 10px rgba(0,0,0,0.35);
+  background:rgba(0,0,0,0.22);
+  border:1px solid rgba(255,255,255,0.22);
+  padding:6px 10px;
+  border-radius:12px;
+  backdrop-filter:blur(4px);
+}
+
+/* === Todo 진행률 === */
+#todo-progress{
+  width:min(76vw,680px);
+  margin:1rem auto 0;
+}
+#todo-progress .progress-top{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:6px;
+  color:var(--muted);
+  font-size:14px;
+}
+.progress-bar{
+  width:100%;
+  height:10px;
+  background:rgba(255,255,255,0.18);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:999px;
+  overflow:hidden;
+  backdrop-filter:blur(3px);
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, #6bb6ff, #8ee3f5);
+}
+
+/* === Light/Dark 테마 === */
+:root.light {
+  --text:#0f172a;
+  --subtext:rgba(15,23,42,0.85);
+  --muted:rgba(15,23,42,0.6);
+  --panel:rgba(255,255,255,0.7);
+  --panel-strong:rgba(255,255,255,0.9);
+}
+:root.light body::before{
+  background:linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.24));
+}
+:root.light #todo-list li{
+  background:rgba(255,255,255,0.7);
+  border-color:rgba(0,0,0,0.1);
+  color:var(--text);
+}
+:root.light #todo-form input{ border-bottom-color:rgba(0,0,0,.6) }
+:root.light #ui-bar .btn-group,
+:root.light #weather{
+  background:rgba(255,255,255,0.7);
+  border-color:rgba(0,0,0,0.15);
+}
+
+/* (이미 존재하던 To-do 레이아웃 보정은 그대로 유지) */
+
