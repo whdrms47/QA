@@ -19,7 +19,6 @@ function Detail() {
   const location = useLocation();
   const isTmdbMode = location.pathname.startsWith("/tmdb/");
   const [movie, setMovie] = useState(null);
-  const [expanded, setExpanded] = useState(false);
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState("");
@@ -190,7 +189,6 @@ function Detail() {
 
   return (
     <div className={styles.detail}>
-      {}
       <div
         className={styles.banner}
         style={{
@@ -215,7 +213,6 @@ function Detail() {
         <div className={styles.overlay}></div>
 
         <div className={styles.info}>
-          {}
           <img
             src={
               movie.medium_cover_image &&
@@ -244,29 +241,15 @@ function Detail() {
         </div>
       </div>
 
-      {}
       <div className={styles.section}>
         <h2>영화 소개</h2>
         {movie.description_full ? (
-          <>
-            <p className={`${styles.description} ${expanded ? styles.expanded : ""}`}>
-              {movie.description_full}
-            </p>
-            {movie.description_full?.length > 300 && (
-              <button
-                className={styles.toggleBtn}
-                onClick={() => setExpanded(!expanded)}
-              >
-                {expanded ? "접기 ▲" : "더보기 ▼"}
-              </button>
-            )}
-          </>
+          <p className={styles.description}>{movie.description_full}</p>
         ) : (
           <p className={styles.emptyText}>등록된 영화 소개가 없습니다.</p>
         )}
       </div>
 
-      {}
       <div className={styles.section}>
         <h2>감독 & 출연진</h2>
         {(!director && cast.length === 0) ? (
@@ -292,7 +275,6 @@ function Detail() {
         )}
       </div>
 
-      {}
       <div className={styles.section}>
         <h2>리뷰 & 평론</h2>
         {reviews.length > 0 ? (
@@ -309,7 +291,6 @@ function Detail() {
         )}
       </div>
 
-      {}
       <div className={styles.section}>
         <h2>Trailer</h2>
         {movie.yt_trailer_code ? (
@@ -327,7 +308,6 @@ function Detail() {
         )}
       </div>
 
-{}
       {providers.length > 0 && (
         <div className={styles.section}>
           <h2>시청 가능한 플랫폼</h2>
@@ -380,5 +360,3 @@ function Detail() {
 }
 
 export default Detail;
-
-
