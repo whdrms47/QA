@@ -5,31 +5,27 @@
   min-height: 100vh;
 }
 
-/* ===========================
-   🔹 필터 영역 (검색 + 장르 + 정렬)
-=========================== */
+
 .filterBar {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;          /* 줄바꿈 허용 (모바일 대응) */
-  gap: 16px;                /* 요소 간 간격 균형 */
+  flex-wrap: wrap;          
+  gap: 16px;               
   margin-bottom: 16px;
 }
 
-/* ===========================
-   🔹 검색 입력 영역
-=========================== */
+
 .searchWrapper {
   position: relative;
   display: inline-block;
-  width: 360px; /* 자동완성과 동일 길이 */
+  width: 360px;
 }
 
 .searchInput {
   width: 360px;
-  height: 40px;              /* ✅ 드롭다운과 높이 통일 */
-  padding: 0 14px;           /* ✅ 수직 중앙 정렬 */
+  height: 40px;              
+  padding: 0 14px;        
   border-radius: 20px;
   border: none;
   font-size: 14px;
@@ -44,12 +40,10 @@
   box-shadow: 0 0 8px rgba(229, 9, 20, 0.8);
 }
 
-/* ===========================
-   🔹 자동완성 리스트
-=========================== */
+
 .suggestionList {
   position: absolute;
-  top: 44px; /* ✅ 입력창 높이에 맞게 위치 보정 */
+  top: 44px; 
   left: 0;
   width: 100%;
   background-color: #1e1e1e;
@@ -86,16 +80,14 @@
   color: #aaa;
 }
 
-/* ===========================
-   🔹 드롭박스 (장르 / 정렬)
-=========================== */
+
 .selectBox {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  height: 40px;                   /* ✅ 검색창과 동일 높이 */
-  padding: 0 30px 0 14px;         /* ✅ 텍스트 수직 중앙 */
-  border-radius: 20px;            /* ✅ 동일 곡률 */
+  height: 40px;                  
+  padding: 0 30px 0 14px;         
+  border-radius: 20px;         
   border: 1px solid #444;
   font-size: 14px;
   background-color: #222;
@@ -114,9 +106,6 @@
   border-color: #666;
 }
 
-/* ===========================
-   🔹 평점 버튼
-=========================== */
 .ratingFilter {
   display: flex;
   justify-content: center;
@@ -139,18 +128,14 @@
   transform: scale(1.05);
 }
 
-/* ===========================
-   🔹 영화 카드 그리드
-=========================== */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
 }
 
-/* ===========================
-   🔹 검색 결과 없음
-=========================== */
+
 .noResult {
   text-align: center;
   font-size: 18px;
@@ -158,9 +143,7 @@
   color: #bbb;
 }
 
-/* ===========================
-   🔹 로딩 오버레이
-=========================== */
+
 .loading {
   position: fixed;
   top: 0;
@@ -197,9 +180,7 @@
   letter-spacing: 0.5px;
 }
 
-/* ===========================
-   🔹 반응형 대응
-=========================== */
+
 @media (max-width: 640px) {
   .filterBar {
     flex-direction: column;
@@ -234,4 +215,5 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
+
 }
