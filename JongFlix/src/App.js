@@ -12,29 +12,25 @@ import Detail from "./routes/Detail";
 import Landing from "./routes/Landing";
 import styles from "./App.module.css";
 
-// ✅ Header 컴포넌트 (로고 클릭 시 완전한 홈 리셋)
 function Header({ onInfoClick }) {
   const location = useLocation();
 
   const handleLogoClick = (e) => {
     e.preventDefault();
 
-    // ✅ 모든 상태 초기화된 홈으로 강제 이동
     if (location.pathname === "/home") {
-      window.location.replace("/home"); // 홈일 경우도 리셋
+      window.location.replace("/home"); 
     } else {
-      window.location.replace("/home"); // 다른 경로에서도 동일하게 완전 리로드
+      window.location.replace("/home"); 
     }
   };
 
   return (
     <header className={styles.header}>
-      {/* ✅ 기존 Link 유지 + onClick 추가 */}
       <Link to="/home" className={styles.logo} onClick={handleLogoClick}>
         JongFlix
       </Link>
 
-      {/* Info 버튼 */}
       <button className={styles.infoBtn} onClick={onInfoClick}>
         i
       </button>
@@ -49,10 +45,8 @@ function App() {
     <Router>
       <div className={styles.app}>
         <Switch>
-          {/* ✅ 랜딩 페이지 */}
           <Route path="/" exact component={Landing} />
 
-          {/* ✅ 홈 & 디테일 */}
           <Route>
             <Header onInfoClick={() => setShowModal(true)} />
 
@@ -65,7 +59,6 @@ function App() {
               </Switch>
             </main>
 
-            {/* ✅ 모달 그대로 유지 */}
             {showModal && (
               <div
                 className={styles.modalOverlay}
