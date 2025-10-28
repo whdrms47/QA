@@ -1,0 +1,237 @@
+.home {
+  padding: 20px;
+  background-color: #141414;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* ===========================
+   🔹 필터 영역 (검색 + 장르 + 정렬)
+=========================== */
+.filterBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;          /* 줄바꿈 허용 (모바일 대응) */
+  gap: 16px;                /* 요소 간 간격 균형 */
+  margin-bottom: 16px;
+}
+
+/* ===========================
+   🔹 검색 입력 영역
+=========================== */
+.searchWrapper {
+  position: relative;
+  display: inline-block;
+  width: 360px; /* 자동완성과 동일 길이 */
+}
+
+.searchInput {
+  width: 360px;
+  height: 40px;              /* ✅ 드롭다운과 높이 통일 */
+  padding: 0 14px;           /* ✅ 수직 중앙 정렬 */
+  border-radius: 20px;
+  border: none;
+  font-size: 14px;
+  background-color: #222;
+  color: #fff;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+}
+
+.searchInput:focus {
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.8);
+}
+
+/* ===========================
+   🔹 자동완성 리스트
+=========================== */
+.suggestionList {
+  position: absolute;
+  top: 44px; /* ✅ 입력창 높이에 맞게 위치 보정 */
+  left: 0;
+  width: 100%;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.suggestionList li {
+  padding: 8px 14px;
+  cursor: pointer;
+  color: #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestionList li:hover {
+  background-color: #2e2e2e;
+  color: #fff;
+}
+
+.suggestionTitle {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.suggestionYear {
+  font-size: 13px;
+  color: #aaa;
+}
+
+/* ===========================
+   🔹 드롭박스 (장르 / 정렬)
+=========================== */
+.selectBox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 40px;                   /* ✅ 검색창과 동일 높이 */
+  padding: 0 30px 0 14px;         /* ✅ 텍스트 수직 중앙 */
+  border-radius: 20px;            /* ✅ 동일 곡률 */
+  border: 1px solid #444;
+  font-size: 14px;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  box-sizing: border-box;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.selectBox:hover {
+  background-color: #333;
+  border-color: #666;
+}
+
+/* ===========================
+   🔹 평점 버튼
+=========================== */
+.ratingFilter {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ratingFilter button {
+  padding: 8px 16px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ratingFilter button:hover {
+  background: #e50914;
+  transform: scale(1.05);
+}
+
+/* ===========================
+   🔹 영화 카드 그리드
+=========================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* ===========================
+   🔹 검색 결과 없음
+=========================== */
+.noResult {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 40px;
+  color: #bbb;
+}
+
+/* ===========================
+   🔹 로딩 오버레이
+=========================== */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.spinner {
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #e50914;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ===========================
+   🔹 반응형 대응
+=========================== */
+@media (max-width: 640px) {
+  .filterBar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .searchWrapper {
+    width: 90%;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+
+  .selectBox {
+    width: 90%;
+  }
+}
+.topSection {
+  margin: 40px 0;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
