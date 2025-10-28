@@ -1,0 +1,163 @@
+.detail {
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* ✅ 상단 배너 */
+.banner {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.bg {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.info img {
+  width: 200px;
+  border-radius: 8px;
+}
+
+.text {
+  max-width: 600px;
+}
+
+.meta {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.genres li {
+  background: #e50914;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* ✅ 공통 섹션 */
+.section {
+  width: 100%;
+  padding: 60px 80px;
+  text-align: left;
+  background-color: #141414;
+  box-sizing: border-box;
+  border-top: 1px solid #222;
+}
+
+.section h2 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  border-left: 4px solid #e50914;
+  padding-left: 10px;
+  color: #fff;
+}
+
+/* ✅ 영화 소개 */
+.description {
+  color: #ddd;
+  font-size: 16px;
+  line-height: 1.7;
+  max-height: 140px;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.expanded {
+  max-height: 2000px;
+  overflow: visible;
+}
+
+.toggleBtn {
+  display: block;
+  margin-top: 12px;
+  background: none;
+  border: none;
+  color: #e50914;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* ✅ 안내 문구 통일 */
+.emptyText {
+  color: #aaa;
+  font-size: 15px;
+  text-align: left;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.platformBtn {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.platformBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+/* 🎞 배경 이미지가 없을 때 기본 검은 배경 */
+.fallbackBg {
+  width: 100%;
+  height: 400px;
+  background-color: #000;
+}
+
+.netflix { background-color: #e50914; }
+.disney { background-color: #113ccf; }
+.watcha { background-color: #ff2f6e; }
+.wavve { background-color: #1e63ff; }
+
+
+/* ✅ 하단 섹션 공통 */
+.castList { display: flex; gap: 15px; flex-wrap: wrap; list-style: none; padding: 0; }
+.castList li { text-align: center; width: 120px; }
+.castList img { width: 100px; border-radius: 8px; }
+.character { font-size: 12px; color: #aaa; }
+
+.reviewCard { background: #222; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+.reviewAuthor { font-weight: bold; margin-bottom: 5px; }
+.reviewContent { font-size: 14px; color: #ccc; }
+
+.videoWrapperFull { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+.videoWrapperFull iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; }
+.spinner { border: 6px solid rgba(255,255,255,0.2); border-top: 6px solid #e50914; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
