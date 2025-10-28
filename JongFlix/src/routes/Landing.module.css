@@ -1,4 +1,3 @@
-/* 🔥 시작 페이드인 */
 .landing {
   width: 100%;
   height: 100vh;
@@ -21,7 +20,6 @@
   perspective: 1400px;
 }
 
-/* 포스터 */
 .posterWrapper {
   position: relative;
   transform-style: preserve-3d;
@@ -39,7 +37,6 @@
   z-index: 1;
 }
 
-/* 반짝임 레이어 */
 .shineLayer {
   position: absolute;
   inset: 0;
@@ -53,7 +50,6 @@
   opacity: 1;
 }
 
-/* 텍스트 영역 */
 .info {
   max-width: 500px;
   padding: 40px 30px;
@@ -97,7 +93,6 @@
   line-height: 1.6;
 }
 
-/* 버튼 */
 .enterBtn {
   padding: 14px 36px;
   background: linear-gradient(90deg, #e50914, #b00610);
@@ -115,7 +110,6 @@
   box-shadow: 0 14px 34px rgba(229, 9, 20, 0.65);
 }
 
-/* 애니메이션 */
 @keyframes landingFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -125,7 +119,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 반응형 */
 @media (max-width: 992px) {
   .hero {
     flex-direction: column;
@@ -150,15 +143,16 @@
   font-weight: 800;
   margin-bottom: 20px;
   color: #e50914;
-  text-decoration: none;   /* ✅ 밑줄 제거 */
-  cursor: pointer;         /* ✅ 마우스 올리면 손가락 커서 */
+  text-decoration: none; 
+  cursor: pointer;      
   display: inline-block;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .logo:hover {
   transform: scale(1.05);
-  color: #ff3b3b;          /* ✅ hover 시 살짝 밝은 빨강 */
+  color: #ff3b3b;          
 }  .movieTitle { font-size: 22px; }
   .subtitle { font-size: 16px; }
   .enterBtn { font-size: 16px; padding: 12px 28px; }
 }
+
