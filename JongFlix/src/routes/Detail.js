@@ -19,7 +19,6 @@ function Detail() {
   const location = useLocation();
   const isTmdbMode = location.pathname.startsWith("/tmdb/");
   const [movie, setMovie] = useState(null);
-  const [expanded, setExpanded] = useState(false);
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState("");
@@ -245,19 +244,7 @@ function Detail() {
       <div className={styles.section}>
         <h2>영화 소개</h2>
         {movie.description_full ? (
-          <>
-            <p className={`${styles.description} ${expanded ? styles.expanded : ""}`}>
-              {movie.description_full}
-            </p>
-            {movie.description_full?.length > 300 && (
-              <button
-                className={styles.toggleBtn}
-                onClick={() => setExpanded(!expanded)}
-              >
-                {expanded ? "접기 ▲" : "더보기 ▼"}
-              </button>
-            )}
-          </>
+          <p className={styles.description}>{movie.description_full}</p>
         ) : (
           <p className={styles.emptyText}>등록된 영화 소개가 없습니다.</p>
         )}
@@ -317,7 +304,7 @@ function Detail() {
             ></iframe>
           </div>
         ) : (
-          <p className={styles.emptyText}>트레일러가 없습니다.</p>
+          <p className={styles.emptyText}>등록된 트레일러가 없습니다.</p>
         )}
       </div>
 
@@ -373,4 +360,3 @@ function Detail() {
 }
 
 export default Detail;
-
