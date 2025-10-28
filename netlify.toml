@@ -12,3 +12,7 @@
   for = "/*"
   [headers.values]
     Cache-Control = "no-cache, no-store, must-revalidate"
+
+[build.environment]
+  NODE_ENV = "production"
+  REACT_APP_CACHE_BUSTER = "v10"
