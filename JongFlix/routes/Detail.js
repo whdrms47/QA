@@ -4,7 +4,6 @@ import styles from "./Detail.module.css";
 
 const TMDB_API_KEY = "8d075e0772042d0c424c05ee251929be";
 
-// ✅ TMDB 장르 매핑 (영문 통일)
 const TMDB_GENRES = {
   28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime",
   99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History",
@@ -12,7 +11,6 @@ const TMDB_GENRES = {
   878: "Sci-Fi", 10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"
 };
 
-// ✅ 포스터/배경 기본 이미지
 const FALLBACK_IMG =
   "https://res.cloudinary.com/dy1xcx7kw/image/upload/v1729430065/no-poster-dark_jongflix.jpg";
 
@@ -131,7 +129,6 @@ function Detail() {
         );
       } catch {}
 
-      // ✅ 수정된 부분 — 장르 영어 변환
       setMovie({
         title: tmdbMovie.title,
         year: tmdbMovie.release_date?.split("-")[0],
@@ -193,7 +190,7 @@ function Detail() {
 
   return (
     <div className={styles.detail}>
-      {/* 🎞 상단 배너 */}
+      {}
       <div
         className={styles.banner}
         style={{
@@ -218,7 +215,7 @@ function Detail() {
         <div className={styles.overlay}></div>
 
         <div className={styles.info}>
-          {/* ✅ 포스터 fallback 개선 */}
+          {}
           <img
             src={
               movie.medium_cover_image &&
@@ -247,7 +244,7 @@ function Detail() {
         </div>
       </div>
 
-      {/* 🎬 영화 소개 */}
+      {}
       <div className={styles.section}>
         <h2>영화 소개</h2>
         {movie.description_full ? (
@@ -269,7 +266,7 @@ function Detail() {
         )}
       </div>
 
-      {/* 🎥 감독 & 출연진 */}
+      {}
       <div className={styles.section}>
         <h2>감독 & 출연진</h2>
         {(!director && cast.length === 0) ? (
@@ -295,7 +292,7 @@ function Detail() {
         )}
       </div>
 
-      {/* 💬 리뷰 & 평론 */}
+      {}
       <div className={styles.section}>
         <h2>리뷰 & 평론</h2>
         {reviews.length > 0 ? (
@@ -312,7 +309,7 @@ function Detail() {
         )}
       </div>
 
-      {/* 🎧 트레일러 */}
+      {}
       <div className={styles.section}>
         <h2>Trailer</h2>
         {movie.yt_trailer_code ? (
@@ -330,7 +327,7 @@ function Detail() {
         )}
       </div>
 
-      {/* 🎞 시청 가능한 플랫폼 */}
+{}
       {providers.length > 0 && (
         <div className={styles.section}>
           <h2>시청 가능한 플랫폼</h2>
@@ -383,3 +380,4 @@ function Detail() {
 }
 
 export default Detail;
+
