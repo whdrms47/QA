@@ -3,7 +3,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ✅ 상단 배너 */
 .banner {
   position: relative;
   margin-bottom: 30px;
@@ -59,7 +58,6 @@
   font-size: 12px;
 }
 
-/* ✅ 공통 섹션 */
 .section {
   width: 100%;
   padding: 60px 80px;
@@ -77,7 +75,6 @@
   color: #fff;
 }
 
-/* ✅ 영화 소개 */
 .description {
   color: #ddd;
   font-size: 16px;
@@ -103,7 +100,6 @@
   text-align: left;
 }
 
-/* ✅ 안내 문구 통일 */
 .emptyText {
   color: #aaa;
   font-size: 15px;
@@ -132,7 +128,6 @@
   transform: translateY(-2px);
   opacity: 0.9;
 }
-/* 🎞 배경 이미지가 없을 때 기본 검은 배경 */
 .fallbackBg {
   width: 100%;
   height: 400px;
@@ -145,7 +140,6 @@
 .wavve { background-color: #1e63ff; }
 
 
-/* ✅ 하단 섹션 공통 */
 .castList { display: flex; gap: 15px; flex-wrap: wrap; list-style: none; padding: 0; }
 .castList li { text-align: center; width: 120px; }
 .castList img { width: 100px; border-radius: 8px; }
@@ -161,3 +155,4 @@
 .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; }
 .spinner { border: 6px solid rgba(255,255,255,0.2); border-top: 6px solid #e50914; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 20px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
