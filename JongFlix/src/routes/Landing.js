@@ -14,7 +14,6 @@ function Landing() {
 
   useEffect(() => {
     const getKTrend = async () => {
-      // 최근 2년 기준으로 국내 트렌드 + 최신 작품 위주
       const since = new Date();
       since.setFullYear(since.getFullYear() - 2);
       const sinceStr = since.toISOString().slice(0, 10);
@@ -29,7 +28,6 @@ function Landing() {
         const list = json?.results || [];
 
         if (list.length) {
-          // 상위 트렌드 중 하나를 랜덤 추천
           const pick = list[Math.floor(Math.random() * Math.min(list.length, 20))];
           setPoster(pick?.poster_path
             ? `https://image.tmdb.org/t/p/w780${pick.poster_path}`
@@ -41,7 +39,6 @@ function Landing() {
         console.error("TMDB 추천 로드 실패:", e);
       }
 
-      // ⛑️ 백업: 기존 YTS 최신작
       try {
         const res = await fetch(
           "https://yts.mx/api/v2/list_movies.json?minimum_rating=8&sort_by=year"
@@ -96,7 +93,6 @@ function Landing() {
     <div className={styles.landing}>
       {poster && (
         <div className={styles.hero}>
-          {/* 포스터 */}
           <div
             className={styles.posterWrapper}
             onMouseEnter={handleMouseEnter}
@@ -111,7 +107,6 @@ function Landing() {
             <img src={poster} alt={title} className={styles.poster} />
           </div>
 
-          {/* 정보 박스 */}
           <div className={styles.info}>
             <h1 className={styles.logo}>JongFlix</h1>
             <h2 className={styles.movieTitle}>
@@ -136,3 +131,4 @@ function Landing() {
 }
 
 export default Landing;
+
