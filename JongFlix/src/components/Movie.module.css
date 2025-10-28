@@ -52,7 +52,7 @@
 
 .genre:hover {
   background: #e50914;
-  transform: scale(1.1); /* ✅ 마우스 오버 시 살짝 커짐 */
+  transform: scale(1.1);
 }
 .cover {
   width: 100%;
@@ -65,9 +65,10 @@
 .cover:before {
   content: "";
   display: block;
-  padding-top: 150%; /* 비율 유지 */
+  padding-top: 150%; 
 }
 
 .cover.loading {
   opacity: 0.5;
+
 }
