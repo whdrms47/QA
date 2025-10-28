@@ -323,7 +323,7 @@ function Detail() {
             ></iframe>
           </div>
         ) : (
-          <p className={styles.emptyText}>트레일러가 없습니다.</p>
+          <p className={styles.emptyText}>등록된 트레일러가 없습니다.</p>
         )}
       </div>
 
@@ -380,4 +380,5 @@ function Detail() {
 }
 
 export default Detail;
+
 
