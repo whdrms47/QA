@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Detail.module.css"; // ✅ Detail에서 쓰던 CSS 그대로 재활용
+import styles from "./Detail.module.css";
 
 function Loading() {
   return (
@@ -11,3 +11,4 @@ function Loading() {
 }
 
 export default Loading;
+
