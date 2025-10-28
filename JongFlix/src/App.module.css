@@ -20,7 +20,6 @@
   margin-right: 12px;
 }
 
-/* ✅ Info 버튼 */
 .infoBtn {
   width: 28px;
   height: 28px;
@@ -45,7 +44,6 @@
   outline: none;
 }
 
-/* ✅ 모달 배경 오버레이 */
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -56,12 +54,11 @@
   z-index: 999;
 }
 
-/* ✅ 모달 본체 (크게) */
 .modal {
   background: #1c1c1c;
   padding: 40px;
   border-radius: 16px;
-  width: 700px;          /* ✅ 더 크게 */
+  width: 700px;        
   max-width: 90%;
   box-shadow: 0 10px 28px rgba(0,0,0,0.65);
   position: relative;
@@ -82,7 +79,6 @@
   line-height: 1.6;
 }
 
-/* ✅ 닫기 버튼 */
 .closeBtn {
   position: absolute;
   top: 16px;
@@ -99,13 +95,11 @@
   color: #fff;
 }
 
-/* 애니메이션 */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 브라우저 기본 여백 제거 */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -118,3 +112,4 @@ body {
   color: #fff;
   overflow-x: hidden;
 }
+
