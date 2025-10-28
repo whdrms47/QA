@@ -8,7 +8,7 @@ function Movie({ id, coverImg, title, summary, genres, link, onGenreClick }) {
     if (e.target.src !== fallback) {
       e.target.src = fallback;
     } else {
-      e.target.onerror = null; // ✅ 무한 루프 방지
+      e.target.onerror = null; 
     }
   };
 
@@ -58,3 +58,4 @@ Movie.propTypes = {
 };
 
 export default Movie;
+
