@@ -1,0 +1,10 @@
+[build]
+  base = "JongFlix"
+  command = "npm run build"
+  publish = "JongFlix/build"
+  functions = "JongFlix/netlify/functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
